@@ -6,7 +6,7 @@ The built-in Array always spreads copies over the **whole** curve. Array Plus le
 Exactly **N copies** with an exact **Gap** between them, starting at a **Start Offset**.
 - Gap measured edge-to-edge (object length added automatically) or center-to-center
 - Copies only cover as much of the curve as they need
-- Closed curves wrap around; open curves drop copies past the end
+- Closed curves wrap around; on open curves, copies continue straight past the ends
 
 ### Copy Transform
 Per-copy **Offset, Rotation and Scale** in X/Y/Z:

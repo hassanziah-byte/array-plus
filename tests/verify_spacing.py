@@ -71,8 +71,19 @@ if not STOCK_ONLY and not __import__("os").environ.get("SKIP_NEW"):
   run("circle_count_spacing_gap1mm", **base, Count_Method="Count & Spacing", Gap=0.001, Edge_to_Edge=True, Start_Offset=0.0)
   run("circle_center_to_center_0.2", **base, Count_Method="Count & Spacing", Gap=0.2, Edge_to_Edge=False)
   run("circle_wrap_count40", **{**base, "Count": 40}, Count_Method="Count & Spacing", Gap=0.1, Edge_to_Edge=True)
-  run("line_open_drops_overflow", Shape="Curve", Curve_Object=line, Realize_Instances=True, Count=20,
+  run("line_open_extends_past_end", Shape="Curve", Curve_Object=line, Realize_Instances=True, Count=20,
       Count_Method="Count & Spacing", Gap=0.0, Edge_to_Edge=True, Start_Offset=0.05)
+# bent open curve: (0,0)->(1,0)->(1,1). Past the end copies continue along +Y; negative start goes along -X
+cu2 = bpy.data.curves.new("bent", "CURVE"); cu2.dimensions = "3D"
+sp2 = cu2.splines.new("POLY"); sp2.points.add(2)
+for i, co in enumerate([(0, 0, 0, 1), (1, 0, 0, 1), (1, 1, 0, 1)]): sp2.points[i].co = co
+bent = bpy.data.objects.new("Bent", cu2); bpy.context.scene.collection.objects.link(bent)
+if not STOCK_ONLY:
+  setin(Shape="Curve", Curve_Object=bent, Realize_Instances=True, Count=4, Count_Method="Count & Spacing",
+        Gap=0.4, Edge_to_Edge=True, Start_Offset=1.7); bpy.context.view_layer.update()
+  R["bent_past_end_xy"] = [[round(c.x, 3), round(c.y, 3)] for c in copies()]
+  setin(Start_Offset=-1.0, Count=2); bpy.context.view_layer.update()
+  R["bent_before_start_xy"] = [[round(c.x, 3), round(c.y, 3)] for c in copies()]
 run("stock_count_mode", **base, Count_Method="Count")
 run("stock_distance_mode", **base, Count_Method="Distance", Distance=0.5)
 

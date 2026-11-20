@@ -14,7 +14,7 @@ import bpy, sys, os
 SRC_GROUP = "Array"
 NEW_GROUP = "Array Plus"
 MODE_NAME = "Count & Spacing"
-GROUP_VERSION = 4  # bump on every node-group change (v1 Count & Spacing, v2 Copy Transform, v3 Location Lock, v4 per-point Axis Lock)
+GROUP_VERSION = 5  # bump on every node-group change (v1 Count & Spacing, v2 Copy Transform, v3 Location Lock, v4 per-point Axis Lock, v5 extend past curve end)
 
 
 def redirect(ng, from_socket, new_from):
@@ -196,21 +196,27 @@ def build(ng):
     cyc = nn("GeometryNodeSampleIndex", 1850, -750, "First Spline Cyclic", data_type="BOOLEAN", domain="CURVE")
     links.new(curve, cyc.inputs["Geometry"]); links.new(cyc_in.outputs[0], cyc.inputs["Value"])
 
+    # Closed curves wrap around. Open curves: copies past either end continue straight along the end tangent
+    # (like the Curve modifier): sample at the clamped length, then push out by the overshoot.
     wrap = math("FLOORED_MODULO", L_out, total.outputs[0], 2100, -400, "Wrap")
-    L_samp = fswitch(cyc.outputs[0], L_out, wrap, 2300, -300, "Sample Length")
+    clamped = math("MINIMUM", math("MAXIMUM", L_out, 0.0, 1900, -500), total.outputs[0], 2100, -550, "Clamp To Curve")
+    over = math("SUBTRACT", L_out, clamped, 2300, -550, "Overshoot")
+    L_samp = fswitch(cyc.outputs[0], clamped, wrap, 2300, -300, "Sample Length")
+    over_open = fswitch(cyc.outputs[0], over, 0.0, 2500, -550, "Overshoot (open only)")
 
-    # valid = cyclic or (0 <= L <= total)
-    ge = nn("FunctionNodeCompare", 2300, -550, "L >= 0", data_type="FLOAT", operation="GREATER_EQUAL")
-    links.new(L_out, ge.inputs["A"]); ge.inputs["B"].default_value = -1e-5
-    le = nn("FunctionNodeCompare", 2300, -700, "L <= Total", data_type="FLOAT", operation="LESS_EQUAL")
-    links.new(L_out, le.inputs["A"]); links.new(math("ADD", total.outputs[0], 1e-5, 2100, -750), le.inputs["B"])
-    inr = nn("FunctionNodeBooleanMath", 2500, -600, operation="AND")
-    links.new(ge.outputs[0], inr.inputs[0]); links.new(le.outputs[0], inr.inputs[1])
-    valid = nn("FunctionNodeBooleanMath", 2700, -600, "Valid", operation="OR")
-    links.new(cyc.outputs[0], valid.inputs[0]); links.new(inr.outputs[0], valid.inputs[1])
+    valid_node = nn("FunctionNodeInputBool", 2700, -600, "Valid (always)"); valid_node.boolean = True
+
+    class _Valid:  # every copy is kept now (no dropping past the curve end)
+        outputs = [valid_node.outputs[0]]
+    valid = _Valid
 
     samp = nn("GeometryNodeSampleCurve", 2550, -250, mode="LENGTH", use_all_curves=True)
     links.new(curve, samp.inputs["Curves"]); links.new(L_samp, samp.inputs["Length"])
+    tan_n = nn("ShaderNodeVectorMath", 2750, -400, "End Tangent", operation="NORMALIZE")
+    links.new(samp.outputs["Tangent"], tan_n.inputs[0])
+    ext = vscale(tan_n.outputs[0], over_open, 2950, -400, "Extension")
+    pos_ext = nn("ShaderNodeVectorMath", 3100, -300, "Extended Position", operation="ADD")
+    links.new(samp.outputs["Position"], pos_ext.inputs[0]); links.new(ext, pos_ext.inputs[1])
 
     pts = nn("GeometryNodePoints", 2550, 100)
     links.new(G("Count"), pts.inputs["Count"])
@@ -218,7 +224,7 @@ def build(ng):
     links.new(pts.outputs[0], cap.inputs["Geometry"])
     for nm in ("Position", "Tangent", "Normal"):
         cap.capture_items.new("VECTOR", nm)
-        links.new(samp.outputs[nm], cap.inputs[nm])
+        links.new(pos_ext.outputs[0] if nm == "Position" else samp.outputs[nm], cap.inputs[nm])
     cap.capture_items.new("BOOLEAN", "Valid"); links.new(valid.outputs[0], cap.inputs["Valid"])
 
     a2r = nn("FunctionNodeAxesToRotation", 3050, -150, primary_axis="X", secondary_axis="Z")

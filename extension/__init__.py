@@ -14,7 +14,7 @@ GROUP = "Array Plus"
 BLEND = os.path.join(os.path.dirname(__file__), "array_plus.blend")
 
 
-GROUP_VERSION = 4  # must match build_array_plus.GROUP_VERSION
+GROUP_VERSION = 5  # must match build_array_plus.GROUP_VERSION
 
 
 def get_group():

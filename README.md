@@ -56,7 +56,7 @@ Set **Shape: Curve**, pick a **Curve Object**, then **Count Method: Count & Spac
 | **Edge to Edge** | On: gap between copy edges (the object's length is added automatically). Off: center-to-center distance |
 | **Start Offset** | Where along the curve the first copy sits |
 
-- Closed curves wrap around; on open curves, copies that would run past the end are dropped.
+- Closed curves wrap around. On open curves, copies that run past either end continue straight in the direction the curve is heading there (like the Curve modifier).
 - The gap is measured along the curve. On tight bends, rigid copies' inner corners sit closer than the gap.
 
 ## Copy Transform
