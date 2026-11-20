@@ -25,7 +25,13 @@ Array Plus keeps everything the stock Array does (Line, Circle, Curve and Transf
 
 or this text link: **[Array Plus 1.0.0 for Blender](https://github.com/hassanziah-byte/array-plus/releases/download/v1.0.0/array_plus-1.0.0.zip?repository=https%3A%2F%2Fgithub.com%2Fhassanziah-byte%2Farray-plus%2Freleases%2Flatest%2Fdownload%2Findex.json&blender_version_min=5.3.0)**
 
-The first time, Blender asks to add the **Array Plus repository** (and to allow online access if it's off). Accept, then click **Install**. Because the repository is added, Blender will **notify you of new versions** and update Array Plus like any extension from extensions.blender.org.
+> **First install: drag & drop twice.**
+> 1. **First drop:** Blender asks to add the **Array Plus repository** (and to allow online access if it's off). Accept it.
+> 2. **Second drop:** drag the same link in again and click **Install**.
+>
+> After that, a single drop is enough.
+
+ Because the repository is added, Blender will **notify you of new versions** and update Array Plus like any extension from extensions.blender.org.
 
 > Drag the link itself into Blender. Clicking it just downloads the zip, which you can then install manually (below).
 
