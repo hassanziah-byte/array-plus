@@ -31,7 +31,7 @@ or this text link: **[Array Plus 1.0.0 for Blender](https://github.com/hassanzia
 >
 > After that, a single drop is enough.
 
- Because the repository is added, Blender will **notify you of new versions** and update Array Plus like any extension from extensions.blender.org.
+Because the repository is added, Blender will **notify you of new versions** and update Array Plus like any extension from extensions.blender.org.
 
 > Drag the link itself into Blender. Clicking it just downloads the zip, which you can then install manually (below).
 
