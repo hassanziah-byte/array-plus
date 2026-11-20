@@ -1,0 +1,9 @@
+# headless Blender profile (see run_blender.sh)
+.blender_isolated/
+# build output - zips are attached to GitHub Releases
+dist/
+*.blend1
+__pycache__/
+# large regenerable reference dumps
+reference/*.blend
+reference/*.json
