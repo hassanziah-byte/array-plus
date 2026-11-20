@@ -1,5 +1,6 @@
 # headless Blender profile (see run_blender.sh)
 .blender_isolated/
+.blender_isolated_net/
 # build output - zips are attached to GitHub Releases
 dist/
 *.blend1
