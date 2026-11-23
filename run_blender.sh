@@ -2,7 +2,7 @@
 # Run Blender headless with an ISOLATED user profile so background runs never touch
 # the real %APPDATA%/Blender Foundation config, add-ons or extension wheels.
 # Usage: ./run_blender.sh <script.py> [-- args...]
-B="${BLENDER_EXE:-/c/Program Files (x86)/Steam/steamapps/common/Blender/blender.exe}"
+B="${BLENDER_EXE:-blender}"   # set BLENDER_EXE if blender is not on PATH
 ISO="${BLENDER_ISOLATED_DIR:-$(cd "$(dirname "$0")" && pwd)/.blender_isolated}"
 mkdir -p "$ISO"
 export BLENDER_USER_RESOURCES="$ISO"

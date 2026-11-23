@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 REPO="hassanziah-byte/array-plus"
-B="${BLENDER_EXE:-/c/Program Files (x86)/Steam/steamapps/common/Blender/blender.exe}"
+B="${BLENDER_EXE:-blender}"   # set BLENDER_EXE if blender is not on PATH
 export BLENDER_USER_RESOURCES="$PWD/.blender_isolated"   # never touch the real Blender profile
 
 VERSION=$(sed -n 's/^version = "\(.*\)"/\1/p' extension/blender_manifest.toml)

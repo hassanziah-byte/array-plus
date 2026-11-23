@@ -21,9 +21,9 @@ Array Plus keeps everything the stock Array does (Line, Circle, Curve and Transf
 
 **Drag this link into any Blender 5.3+ window:**
 
-[![Drag into Blender to install](https://img.shields.io/badge/Drag%20into%20Blender-Install%20Array%20Plus%201.0.0-E87D0D?style=for-the-badge&logo=blender&logoColor=white)](https://github.com/hassanziah-byte/array-plus/releases/download/v1.0.0/array_plus-1.0.0.zip?repository=https%3A%2F%2Fgithub.com%2Fhassanziah-byte%2Farray-plus%2Freleases%2Flatest%2Fdownload%2Findex.json&blender_version_min=5.3.0)
+[![Drag into Blender to install](https://img.shields.io/badge/Drag%20into%20Blender-Install%20Array%20Plus%201.1.0-E87D0D?style=for-the-badge&logo=blender&logoColor=white)](https://github.com/hassanziah-byte/array-plus/releases/download/v1.1.0/array_plus-1.1.0.zip?repository=https%3A%2F%2Fgithub.com%2Fhassanziah-byte%2Farray-plus%2Freleases%2Flatest%2Fdownload%2Findex.json&blender_version_min=5.3.0)
 
-or this text link: **[Array Plus 1.0.0 for Blender](https://github.com/hassanziah-byte/array-plus/releases/download/v1.0.0/array_plus-1.0.0.zip?repository=https%3A%2F%2Fgithub.com%2Fhassanziah-byte%2Farray-plus%2Freleases%2Flatest%2Fdownload%2Findex.json&blender_version_min=5.3.0)**
+or this text link: **[Array Plus 1.1.0 for Blender](https://github.com/hassanziah-byte/array-plus/releases/download/v1.1.0/array_plus-1.1.0.zip?repository=https%3A%2F%2Fgithub.com%2Fhassanziah-byte%2Farray-plus%2Freleases%2Flatest%2Fdownload%2Findex.json&blender_version_min=5.3.0)**
 
 > **First install: drag & drop twice.**
 > 1. **First drop:** Blender asks to add the **Array Plus repository** (and to allow online access if it's off). Accept it.
